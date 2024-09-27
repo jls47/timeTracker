@@ -1,8 +1,11 @@
 <script lang="ts">
+  
+  import { counter } from '$lib/counter'
+
   export let name;
   export let ms;
+
   
-  let count: number = 0;
   let startMs : number = 0;
   let currentMs : number = ms;
   let started : boolean = false;
@@ -17,6 +20,8 @@
   const start = () => {
     if(started) {
       currentMs += Date.now() - startMs;
+      console.log(currentMs);
+      counter.update(count => count + currentMs);
       started = false;
       buttonStyle = "button is-primary";
       currentHours = Math.floor(currentMs / 1000 / 60 / 60) % 12;

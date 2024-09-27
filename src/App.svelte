@@ -2,6 +2,20 @@
   import svelteLogo from './assets/svelte.svg'
   import viteLogo from '/vite.svg'
   import Timer from './lib/Timer.svelte'
+  import { counter } from '$lib/counter'
+
+  let ms = 0;
+
+  let totalS = Math.floor((ms / 1000) % 60);
+  let totalM = Math.floor((totalS / 60) % 60);
+  let totalH = Math.floor(totalM / 60);
+
+  counter.subscribe(value => {
+    ms = value;
+    totalS = Math.floor((ms / 1000) % 60);
+    totalM = Math.floor((totalS / 60) % 60);
+    totalH = Math.floor(totalM / 60);
+  });
 
   let timerName : string = "";
   let timerTime : number = 0;
@@ -32,7 +46,6 @@
     times.push(0);
     timers = timers;
     console.log(timers);
-    console.log
   }
 
   const saveData = () => {
@@ -78,6 +91,9 @@
     <h2 class="title is-2"><i class="fa-regular fa-clock"></i></h2>
     <br>
     <div class="card">
+      <div class="totalTime">
+        <h4 class="title is-4">Total time : {totalH} hours, {totalM} minutes, {totalS} seconds</h4>
+      </div>
     <input class="input is-info" type="text" placeholder="Task" bind:value={timerName}/><button class="button" on:click={addItem}>
       <i class="fa-solid fa-plus"></i>
     </button>

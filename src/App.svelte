@@ -107,9 +107,9 @@
 
   const updateTimer = () => {
     //console.log("Updating " + ms);
-    totalS = Math.floor((ms / 1000) % 60);
-    totalM = Math.floor((totalS / 60) % 60);
-    totalH = Math.floor(totalM / 60);
+    totalH = Math.floor(ms / 1000 / 60 / 60) % 12;
+    totalM = Math.floor(ms / 1000 / 60) % 60;
+    totalS = Math.floor(ms / 1000) % 60;
   }
 
   loadData();
